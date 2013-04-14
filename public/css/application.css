@@ -1,0 +1,60 @@
+::selection {
+  color: #D8D878;
+  background: #480018;
+}
+html, body {
+  background-color: rgb(242,242,242);
+}
+header nav {
+  margin: 0 auto;
+  background-color: rgb(60,63,64);
+  padding: 2em 0;
+}
+button {
+  border: none;
+  background-color: rgb(56,155,166);
+  padding: 20px;
+  margin-left: 30px;
+  color: rgb(60,63,64);
+  font-size: 1.5em;
+}
+header span.errors {
+  color: red;
+  font-size: 1.5em;
+  background-color: rgb(217,161,59);
+  padding-left: 1em;
+  display: block;
+  padding-bottom: .5em;
+}
+form {
+  background-color: rgb(217,161,59);
+}
+form input {
+  padding: 0.5em;
+  border: none;
+  margin: 1em;
+  font-size: 1.5em;
+  color: rgb(60,63,64);
+  background-color: rgb(242,242,242);
+}
+:focus {
+  outline: none;
+}
+header form button, div form button {
+  padding: 0.5em;
+  font-size: 1.5em;
+  border: none;
+  color: rgb(217,161,59);
+  background-color: rgb(60,63,64);
+}
+label {
+  color: rgb(60,63,64);
+  font-size: 1.5em;
+  margin-left: 50px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,27 @@
+<header>
+    <nav>
+      <% if @user %>
+        <button class="logout"><a href="/logout">Log Out</a></button>
+        <button class="create_form"><a href="/create_form">Create From</a></button>
+      <% else %>
+        <button class="login"><a href="/login">Log In</a></button>
+        <button class="signup"><a href="/signup">Sign Up</a></button>
+      <% end %>
+    </nav>
+</header>
+<% if @surveys %>
+  <% @surveys.each do |s| %>
+    <div class="survey">
+      <h1>
+        <% if @user %>
+         <a href="/form/<%= s.id%>"><%= s.title %></a>
+        <% else %>
+        <%= s.title %>
+        <% end %>
+      </h1>
+    </div>
+  <% end %>
+<% end %>
+<footer>
+    <span class="copy_right">Copyright &copy;. Alex Ray, Michael Malchak, Chris Malin, Eric Dykstra</span>
+</footer>

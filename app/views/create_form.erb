@@ -1,0 +1,24 @@
+<header>
+  <nav>
+    <% if @user %>
+      <button class="logout"><a href="/logout">Log Out</a></button>
+      <button class="create_form"><a href="/create_form">Create Form</a></button>
+    <% else %>
+      <button class="login"><a href="/login">Log In</a></button>
+    <% end %>
+  </nav>
+</header>
+
+<form class="survey_form" action="/new_form" method="post">
+  <label for="title">Title</label>
+  <input id="title" type="text" name="survey[title]" placeholder="Survey Title"/></br>
+  <label for="question">Question</label>
+  <input id="question" type="text" name="survey[question][title]" placeholder="Question"/></br>
+  <label for="answer1">Answer 1.</label>
+  <input id="answer1" type="text" name="survey[question][answers][]" placeholder="1. Answer" /></br>
+  <label for="answer2">Answer 2.</label>
+  <input id="answer2" type="text" name="survey[question][answers][]" placeholder="2. Answer" /></br>
+  <label for="answer3">Answer 3.</label>
+  <input id="answer3" type="text" name="survey[question][answers][]" placeholder="3. Answer" /></br>
+  <button type="submit">Create Form!</button>
+</form>

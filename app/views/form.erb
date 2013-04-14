@@ -1,0 +1,18 @@
+<h1><%= @survey.title %></h1>
+<form action="/form/<%= @survey.id %>" method="post">
+
+  <% @questions.each do |question| %>
+
+    <label><%= question.text %></label>
+    <select name="<%= question.text %>">
+
+      <% @choices.each do |answer| %>
+        <option><%= answer.name %></option>
+      <%end%>
+
+    </select>
+
+  <%end%>
+
+  <button type="submit">Submit Survey</button>
+</form>

@@ -1,0 +1,16 @@
+<header>
+  <nav>
+    <% if @user %>
+      <button class="logout"><a href="/logout">Log Out</a></button>
+      <button class="create_form"><a href="/create_form">Create Form</a></button>
+    <% else %>
+      <button class="login"><a href="/login">Log In</a></button>
+    <% end %>
+  </nav>
+</header>
+
+<form class="header_form" action="/signup" method="post">
+  <input type="email" name="user[email]" placeholder="email@example.com" />
+  <input type="password" name="user[password]" placeholder="password" />
+  <button type="submit">Sign Up</button>
+</form>
