@@ -1,14 +1,13 @@
 get '/' do
   @user = current_user
-  @surveys = Survey.find(:all)
-  @surveys.uniq!{ |s| s.title }
-  puts @surveys.inspect
+  @surveys = unique_surveys
   erb :index
 end
 
 get '/logout' do
   session[:user_id] = nil
   @user = current_user
+  @surveys = unique_surveys
   erb :index
 end
 
@@ -50,11 +49,14 @@ end
 
 get '/signup' do
   @user = current_user
+  @surveys = unique_surveys
+
   erb :signup
 end
 
 get '/login' do
   @user = current_user
+  @surveys = unique_surveys
   erb :login
 end
 
@@ -71,7 +73,7 @@ post '/signup' do
     erb :signup
   else
     @user = current_user
-    @surveys = Survey.select("DISTINCT title")
+    @surveys = unique_surveys
     erb :index
   end
 end
@@ -84,7 +86,7 @@ post '/login' do
     erb :login
   else
     @user = current_user
-    @surveys = Survey.select("DISTINCT title")
+    @surveys = unique_surveys
     erb :index
   end
 end
@@ -113,6 +115,7 @@ post '/new_form' do
 
   erb :form
 end
+
 
 
 

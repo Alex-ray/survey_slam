@@ -8,9 +8,21 @@
     <% end %>
   </nav>
 </header>
-
 <form class="header_form" action="/signup" method="post">
   <input type="email" name="user[email]" placeholder="email@example.com" />
   <input type="password" name="user[password]" placeholder="password" />
   <button type="submit">Sign Up</button>
 </form>
+<% if @surveys %>
+  <% @surveys.each do |s| %>
+    <div class="survey">
+      <h1>
+        <% if @user %>
+         <a href="/form/<%= s.id%>"><%= s.title %></a>
+        <% else %>
+        <%= s.title %>
+        <% end %>
+      </h1>
+    </div>
+  <% end %>
+<% end %>
