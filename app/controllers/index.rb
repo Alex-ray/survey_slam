@@ -1,8 +1,7 @@
 get '/' do
   @user = current_user
+  @surveys = Survey.select("DISTINCT title")
   puts @surveys.inspect
-  @surveys = Survey.joins(:questions).where(:questions => {:answer => nil})
-  puts
   erb :index
 end
 
@@ -71,7 +70,7 @@ post '/signup' do
     erb :signup
   else
     @user = current_user
-    @surveys = Survey.joins(:questions).where(:questions => {:answer => nil})
+    @surveys = Survey.select("DISTINCT title")
     erb :index
   end
 end
@@ -84,7 +83,7 @@ post '/login' do
     erb :login
   else
     @user = current_user
-    @surveys = Survey.joins(:questions).where(:questions => {:answer => nil})
+    @surveys = Survey.select("DISTINCT title")
     erb :index
   end
 end
