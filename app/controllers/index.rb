@@ -1,6 +1,7 @@
 get '/' do
   @user = current_user
-  @surveys = Survey.select("DISTINCT title")
+  @surveys = Survey.find(:all)
+  @surveys.uniq!{ |s| s.title }
   puts @surveys.inspect
   erb :index
 end
