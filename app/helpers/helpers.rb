@@ -46,12 +46,6 @@ helpers do
   end
 
   def create_survey(params)
-
-    {"survey"=>{"title"=>"dumb survey",
-      "questions"=>[{"title"=>"q1", "answers"=>["a1", "a2", "a3"]},
-      {"title"=>"q2", "answers"=>["a1", "a2", "a3"]}]}}
-
-    puts params
     survey = Survey.create(title: params[:survey][:title])
 
     params[:survey][:questions].each do |q|
