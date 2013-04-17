@@ -4,35 +4,46 @@ get '/' do
   erb :index
 end
 
-get '/logout' do
-  session[:user_id] = nil
+get '/login' do
   @user = current_user
   @surveys = unique_surveys
-  erb :index
+  erb :login
+end
+
+get '/signup' do
+  @user = current_user
+  @surveys = unique_surveys
+  erb :signup
+end
+
+post '/signup' do
+  if user = User.create(params[:user])
+    session[:user_id] = user.id
+    redirect to '/'
+  else
+    erb :signup
+  end
+end
+
+post '/login' do
+  if user = User.authenticate(params[:user])
+    session[:user_id] = user.id
+    redirect to '/'
+  else
+    erb :login
+  end
+end
+
+get '/logout' do
+  logout
+  redirect to '/'
 end
 
 get '/form/:form_id' do
-
-  survey = Survey.find(params[:form_id])
-  new_survey = survey.dup
-  new_survey.save
-
-  q = survey.questions.first
-  new_q = q.dup
-  new_q.save
-
-  new_survey.questions << new_q
-  new_survey.save
-
-  q.choices.each do |c|
-    new_q.choices << c.dup
-    new_q.save
-  end
-
-  @survey = new_survey
-  @questions = new_survey.questions
-  @choices = new_q.choices
-
+  survey = duplicate_survey(params[:form_id])
+  @survey = survey[:survey]
+  @questions = survey[:questions]
+  @choices = survey[:choices]
   erb :form
 end
 
@@ -47,48 +58,10 @@ post '/form/:form_id' do
   erb :result
 end
 
-get '/signup' do
-  @user = current_user
-  @surveys = unique_surveys
-
-  erb :signup
-end
-
-get '/login' do
-  @user = current_user
-  @surveys = unique_surveys
-  erb :login
-end
 
 get '/create_form' do
   @user = current_user
   erb :create_form
-end
-
-post '/signup' do
-  user = User.create(params[:user])
-  sign_in(user)
-  if user == nil
-    @errors
-    erb :signup
-  else
-    @user = current_user
-    @surveys = unique_surveys
-    erb :index
-  end
-end
-
-post '/login' do
-  user = User.authenticate(params[:user][:email], params[:user][:password])
-  sign_in(user)
-  if user == nil
-    @errors
-    erb :login
-  else
-    @user = current_user
-    @surveys = unique_surveys
-    erb :index
-  end
 end
 
 post '/new_form' do

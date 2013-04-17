@@ -22,4 +22,5 @@ gem 'bcrypt-ruby'
 group :test do
   gem 'faker'
   gem 'rspec'
+  gem 'debugger'
 end

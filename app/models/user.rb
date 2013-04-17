@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
     self.password_hash = @password
   end
 
-  def self.authenticate(email, password)
-    @user = User.find_by_email(email)
+  def self.authenticate(args)
+    @user = User.find_by_email(args[:email])
     if @user
-      return @user if (@user.password == password)
+      return @user if (@user.password == args[:password])
     end
   end
 end
