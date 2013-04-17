@@ -40,24 +40,14 @@ get '/logout' do
 end
 
 get '/form/:form_id' do
-  survey = duplicate_survey(params[:form_id])
-  @survey = survey[:survey]
-  @questions = survey[:questions]
-  @choices = survey[:choices]
+  @survey = duplicate_survey(params[:form_id])
   erb :form
 end
 
 post '/form/:form_id' do
-  survey = Survey.find(params[:form_id])
-  questions = survey.questions
-  questions.each do |q|
-    q.answer = params[q.text]
-    q.save!
-  end
-  survey.save!
+  answer_questions(params)
   erb :result
 end
-
 
 get '/create_form' do
   @user = current_user
@@ -65,27 +55,7 @@ get '/create_form' do
 end
 
 post '/new_form' do
-  questions = []
-  questions << params[:survey][:question][:answers][0]
-  questions << params[:survey][:question][:answers][1]
-  questions << params[:survey][:question][:answers][2]
-
-  user = current_user
-
-  survey = Survey.create(title: params[:survey][:title])
-  q = Question.create(text: params[:survey][:question][:title])
-
-  questions.each do |s|
-    q.choices << Choice.create(name: s)
-  end
-
-  survey.questions << q
-  user.surveys << survey
-
-  @survey = user.surveys.last()
-  @questions = survey.questions
-  @choices = q.choices
-
+  @survey = create_survey(params)
   erb :form
 end
 
